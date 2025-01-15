@@ -9,7 +9,7 @@ function HeaderComponent({setToggleHeader}) {
 
   }
   return (
-    <div className='flex items-center justify-between container mx-auto h-[90px]'>
+    <div className='flex flex-col lg:flex-row items-center justify-between container mx-auto h-[90px] py-[15px]'>
       <div >
         <p>Need help? Call us: <a href="tel:+(+98) 0234 456 789">(+98) 0234 456 789 </a></p>
       </div>
@@ -18,7 +18,7 @@ function HeaderComponent({setToggleHeader}) {
       <div className="flex items-center gap-[30px] ">
         <div className="flex items-center gap-[10px]">
           {/*icon*/}
-          <CiLocationOn size={28} />
+          <CiLocationOn size={28} /> 
           {/*text */}
           <span>Our store</span>
         </div>
