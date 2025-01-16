@@ -11,6 +11,15 @@ import HomePage from './pages/HomePage.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 
+
+//Import Clerk publishable key
+import { ClerkProvider } from '@clerk/clerk-react'
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
+
 const router = createBrowserRouter([
   //APP ROUTER
 
@@ -29,8 +38,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <RouterProvider router={router} />
+      </ClerkProvider>
     </Provider>
+
   </StrictMode>,
 )

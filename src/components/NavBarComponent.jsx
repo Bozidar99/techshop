@@ -11,6 +11,9 @@ import logo from '../assets/logo.png'
 import { IoPersonCircleOutline, IoCart } from "react-icons/io5";
 import { MdFavoriteBorder } from "react-icons/md";
 
+//CLERK
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+
 function NavBarComponent() {
   const [toggleHeader, setToggleHeader] = useState(true)
   return (
@@ -25,18 +28,25 @@ function NavBarComponent() {
 
           <div className='flex items-center gap-[30px]'>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
-              <IoPersonCircleOutline size={38}/>
-              
-              <strong><span>Log in</span></strong>
+              <IoPersonCircleOutline size={38} />
+              {/*Da se ulogujes*/}
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+
+              {/*Kad se ulogujes*/}
+              <SignedIn>
+                <UserButton showName/>
+              </SignedIn>
             </div>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
-              <MdFavoriteBorder  size={38}/>
+              <MdFavoriteBorder size={38} />
 
               <strong><span className='bg-mainYellow rounded-full px-[5px]'>0</span></strong>
               <strong><span>Favorites</span></strong>
             </div>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
-              <IoCart size={38}/>
+              <IoCart size={38} />
               <strong><span className='bg-mainYellow rounded-full px-[5px]'>0</span></strong>
               <strong><span>Cart</span></strong>
             </div>
