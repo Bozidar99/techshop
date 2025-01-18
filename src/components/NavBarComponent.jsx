@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 
+//router
+import { Link } from 'react-router-dom'
+
 //compoennts
 import HeaderComponent from "./HeaderComponent"
 import SearchCompnent from './SearchCompnent'
@@ -13,10 +16,14 @@ import { MdFavoriteBorder } from "react-icons/md";
 
 //CLERK
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
-import { Link } from 'react-router-dom'
+
+//redux
+import { useSelector } from 'react-redux'
 
 function NavBarComponent() {
   const [toggleHeader, setToggleHeader] = useState(true)
+
+  const {totalProduct} = useSelector(state => state.cartStore)
   return (
     <div>
       {toggleHeader && <HeaderComponent setToggleHeader={setToggleHeader} />}
@@ -50,8 +57,8 @@ function NavBarComponent() {
             </div>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
               <IoCart size={38} />
-              <strong><span className='bg-mainYellow rounded-full px-[5px]'>0</span></strong>
-              <strong><span>Cart</span></strong>
+              <strong><span className='bg-mainYellow rounded-full px-[5px]'>{totalProduct}</span></strong>
+              <strong><Link to={'/cart'}>Cart</Link></strong>
             </div>
           </div>
         </div>

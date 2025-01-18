@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 //PAGES
 import HomePage from './pages/HomePage.jsx'
 import SingleProductPage from './pages/SingleProductPage.jsx'
+import CartPage from './pages/CartPage.jsx'
 //REDUX & STORE
 import { Provider } from 'react-redux'
 import store from './store/store.js'
@@ -15,6 +16,7 @@ import store from './store/store.js'
 
 //Import Clerk publishable key
 import { ClerkProvider } from '@clerk/clerk-react'
+
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 if (!PUBLISHABLE_KEY) {
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/singleProduct/:id',
         element: <SingleProductPage />,
+      },
+      {
+        path: '/cart',
+        element: <CartPage />,
       }
     ]
   }
