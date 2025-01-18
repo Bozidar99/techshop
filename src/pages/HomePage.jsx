@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 //services
 
 import ProductsService from '../services/ProductsService'
@@ -14,25 +14,36 @@ import CardProductComponent from '../components/CardProductComponent'
 import LoaderComponent from '../components/LoaderComponent'
 
 function HomePage() {
+  
 
-  const {allProducts, loading} = useSelector(state => state.productStore)
+  const { allProducts, loading, selectCategory } = useSelector(state => state.productStore)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    ProductsService.getAllProductsService()
+
+    if(selectCategory){
+      ProductsService.getAllProductsByCategory(selectCategory)
       .then(res => dispatch(saveAllProductsAction(res.data.products)))
       .catch(err => console.log(err))
-  }, [])
+    }else{
+      ProductsService.getAllProductsService()
+      .then(res => dispatch(saveAllProductsAction(res.data.products)))
+      .catch(err => console.log(err))
+    }
+    
+  }, [selectCategory])
   return (
     <div className='container mx-auto flex flex-wrap items-center justify-center mt-[50px] gap-[10px]'>
       {loading ? allProducts.map((product) => {
-        return <CardProductComponent key={product._id} product={product}/>
-      }) : 
-      <LoaderComponent/>}
+        return <CardProductComponent key={product._id} product={product} />
+      }) :
+        <LoaderComponent />}
+
+      
     </div>
+
   )
 }
 
 export default HomePage
- 
