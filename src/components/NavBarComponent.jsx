@@ -13,6 +13,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 
 //CLERK
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+import { Link } from 'react-router-dom'
 
 function NavBarComponent() {
   const [toggleHeader, setToggleHeader] = useState(true)
@@ -21,7 +22,9 @@ function NavBarComponent() {
       {toggleHeader && <HeaderComponent setToggleHeader={setToggleHeader} />}
       <div className='bg-mainBlue h-full py-[10px] lg:h-[100px]' >
         <div className='container mx-auto flex items-center justify-between h-full flex-col lg:flex-row gap-[15px]'>
-          <img src={logo} alt="logo" />
+          <Link to={'/'}>
+            <img src={logo} alt="logo" />
+          </Link>
 
           {/*Search bar compnent*/}
           <SearchCompnent />
@@ -36,7 +39,7 @@ function NavBarComponent() {
 
               {/*Kad se ulogujes*/}
               <SignedIn>
-                <UserButton showName/>
+                <UserButton showName />
               </SignedIn>
             </div>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
