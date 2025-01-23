@@ -36,11 +36,11 @@ function SingleProductPage() {
       {isLoading ? <div className='container mx-auto flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]'>
         {/* left side */}
         <div className='w-full lg:w-[50%]'>
-          <img src={singleProduct.images[currentImage]} alt={singleProduct.title} className='w-full h-[700px] object-cover ' />
+          <img src={singleProduct.images[currentImage]} alt={singleProduct.title} className='max-h-[400px] object-cover ' />
 
-          <div className='flex items-center justify-center gap-[15px]'>
+          <div className='flex items-center justify-center gap-[15px] flex-wrap'>
             {singleProduct.images.map((el, index) => {
-              return <img key={index} src={el} alt={singleProduct.title} className='w-[220px] h-[200px] object-cover border border-textColor rounded-[20px]'
+              return <img key={index} src={el} alt={singleProduct.title} className='w-[200px] h-[200px] object-cover border border-textColor rounded-[20px] p-[10px]'
                 onClick={() => setCurrentImage(index)} />
             })}
           </div>
