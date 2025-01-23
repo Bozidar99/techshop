@@ -4,7 +4,8 @@ const cartSlice = createSlice({
     name : 'cart',
     initialState: {
         cart: [],
-        totalProduct: 0
+        totalProduct: 0,
+        totalPrice: 0
     },
     reducers: {
         addToCart: (state,action) => {
@@ -23,6 +24,7 @@ const cartSlice = createSlice({
             if(findIndex === null) {
                 copyCart.push({...action.payload, count: 1, cartTotal: action.payload.price})
                 state.totalProduct++
+                state.totalPrice += action.payload.price
             } else {
                 copyCart[findIndex].count++
             }
