@@ -30,9 +30,36 @@ const cartSlice = createSlice({
             }
             
             state.cart = copyCart
+            localStorage.setItem('cart_item', JSON.stringify(copyCart))
+            localStorage.setItem('cart_total', JSON.stringify(state.totalProduct))
+
+        },
+        deleteFromCartAction: (state, action) => {
+            let copyCart = [...state.cart]
+            console.log(action.payload);
+
+            let findIndex = null
+
+            copyCart.find((item, index) => {
+                if(item.id === action.payload.id){
+                    findIndex = index
+                    return
+                }
+            })
+
+
+            if(findIndex != null){
+                copyCart.splice(findIndex,1)
+                state.totalProduct--
+                //state.totalPrice
+            }
+
+            state.cart = copyCart
+            localStorage.setItem('cart_item', JSON.stringify(copyCart))
+            localStorage.setItem('cart_total', JSON.stringify(state.totalProduct))
         }
     }
 })
 
-export const {addToCart} = cartSlice.actions
+export const {addToCart, deleteFromCartAction} = cartSlice.actions
 export default cartSlice.reducer

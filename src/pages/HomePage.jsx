@@ -65,7 +65,7 @@ function HomePage() {
         {loading ? allProducts.map((product) => {
           return (
 
-            <CardProductComponent key={product._id} product={product}
+            <CardProductComponent key={product.id} product={product}
               isGrid={isGrid} setIsGrid={setIsGrid} />
           )
         }) :

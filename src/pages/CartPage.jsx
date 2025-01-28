@@ -1,15 +1,26 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteFromCartAction } from '../store/cartSlice';
 
 function CartPage() {
 
   const[activeCode, setActiveCode] = useState('')
-
+  const [cartData, setCartData] = useState([])
   const { cart, totalPrice } = useSelector(state => state.cartStore)
 
   const couponRef = useRef()
 
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setCartData(JSON.parse(localStorage.getItem('cart_item')) )
+  }, [cart])
+
+  function handleRemoveProduct(product) {
+    dispatch(deleteFromCartAction(product))
+  }
+  
   function handleApplyCoupon() {
      setActiveCode(couponRef.current.value)
 
@@ -33,7 +44,7 @@ function CartPage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {cart.map((product, index) => (
+              {cartData.map((product, index) => (
                 <TableRow
 
                   key={product.id}
@@ -70,8 +81,6 @@ function CartPage() {
               ref={couponRef}
               type='text' placeholder='Insert cupuon'
               className='p-[10px] border border-gray-500 rounded-lg placeholder:text-textColor outline-none mt-[25px]'
-              //value={activeCode}
-              //onChange={(e) => setActiveCode(e.target.value)}
             />
             <span className='text-[13px] text-gray-500'>Insert cupon for 50% discount</span>
             <button className= {activeCode === 'alphabozo' ? 

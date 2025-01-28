@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect  } from 'react'
 
 //router
 import { Link } from 'react-router-dom'
@@ -22,8 +21,16 @@ import { useSelector } from 'react-redux'
 
 function NavBarComponent() {
   const [toggleHeader, setToggleHeader] = useState(true)
-
+  const [totalProductLC, setTotalProductLC] = useState()
+  //let totalProduct = JSON.parse(localStorage.getItem('cart_total'))
   const {totalProduct} = useSelector(state => state.cartStore)
+
+  useEffect(() => {
+    if(totalProduct){
+      setTotalProductLC(JSON.parse(localStorage.getItem('cart_total')))
+    }
+  }, [totalProduct])
+
   return (
     <div>
       {toggleHeader && <HeaderComponent setToggleHeader={setToggleHeader} />}
@@ -57,7 +64,7 @@ function NavBarComponent() {
             </div>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
               <IoCart size={38} />
-              <strong><span className='bg-mainYellow rounded-full px-[5px]'>{totalProduct}</span></strong>
+              <strong><span className='bg-mainYellow rounded-full px-[5px]'>{totalProduct ? totalProduct : 0}</span></strong>
               <strong><Link to={'/cart'}>Cart</Link></strong>
             </div>
           </div>
