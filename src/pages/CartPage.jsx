@@ -1,5 +1,5 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 function CartPage() {
@@ -8,8 +8,14 @@ function CartPage() {
 
   const { cart, totalPrice } = useSelector(state => state.cartStore)
 
-  function handleApplyCupon() {
-     
+  const couponRef = useRef()
+
+  function handleApplyCoupon() {
+     setActiveCode(couponRef.current.value)
+
+
+     couponRef.current.value = ''
+
   }
 
   return (
@@ -58,17 +64,24 @@ function CartPage() {
         {/*CART TOTAL */}
         <div className='w-full lg:w-[30%] '>
           <h2 className='text-whiteColor bg-mainBlue py-[16px] text-center rounded-[5px]'>CART TOTAL</h2>
-          <span className='text-center text-[28px] font-extrabold'>Total price: ${totalPrice}</span>
+          <span className='text-center text-[28px] font-extrabold'>Total price: ${activeCode === 'alphabozo' ? totalPrice / 2 : totalPrice}</span>
           <div className='flex flex-col '>
-            <input type='text' placeholder='Insert cupuon'
+            <input 
+              ref={couponRef}
+              type='text' placeholder='Insert cupuon'
               className='p-[10px] border border-gray-500 rounded-lg placeholder:text-textColor outline-none mt-[25px]'
-              value={activeCode}
-              onChange={(e) => setActiveCode(e.target.value)}
+              //value={activeCode}
+              //onChange={(e) => setActiveCode(e.target.value)}
             />
             <span className='text-[13px] text-gray-500'>Insert cupon for 50% discount</span>
-            <button className='bg-mainBlue hover:bg-mainYellow text-whiteColor px-[15px] py-[7px] rounded-lg transition-all duration-300 cursor-pointer mt-[30px]'
-            onClick={handleApplyCupon}
-            >Apply Cupun</button>
+            <button className= {activeCode === 'alphabozo' ? 
+            'bg-gray-500 hover:bg-gray-600 text-whiteColor px-[15px] py-[7px] rounded-lg transition-all duration-300 cursor-pointer mt-[30px]' : 
+            'bg-mainBlue hover:bg-mainYellow text-whiteColor px-[15px] py-[7px] rounded-lg transition-all duration-300 cursor-pointer mt-[30px]'}
+            onClick={handleApplyCoupon}
+            disabled = {activeCode === 'alphabozo' ? true : false}
+            >
+              {activeCode === 'alphabozo' ? 'Coupun applyed' : 'Apply Cupun'}
+            </button>
           </div>
 
         </div>
