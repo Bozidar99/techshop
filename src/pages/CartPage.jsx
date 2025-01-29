@@ -1,7 +1,7 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteFromCartAction } from '../store/cartSlice';
+import { deleteFromCartAction, setPriceHendlerAction } from '../store/cartSlice';
 
 function CartPage() {
 

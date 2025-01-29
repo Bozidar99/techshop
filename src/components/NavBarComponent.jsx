@@ -21,15 +21,19 @@ import { useSelector } from 'react-redux'
 
 function NavBarComponent() {
   const [toggleHeader, setToggleHeader] = useState(true)
-  const [totalProductLC, setTotalProductLC] = useState()
-  //let totalProduct = JSON.parse(localStorage.getItem('cart_total'))
+  const [totalProductLS, setTotalProductLS] = useState()
+  
   const {totalProduct} = useSelector(state => state.cartStore)
 
   useEffect(() => {
-    if(totalProduct){
-      setTotalProductLC(JSON.parse(localStorage.getItem('cart_total')))
-    }
-  }, [totalProduct])
+		let lsTotal = JSON.parse(localStorage.getItem('cart_total'));
+
+		if (lsTotal) {
+			setTotalProductLS(lsTotal);
+		} else {
+			setTotalProductLS(0);
+		}
+	}, [totalProduct]);
 
   return (
     <div>
@@ -64,7 +68,7 @@ function NavBarComponent() {
             </div>
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
               <IoCart size={38} />
-              <strong><span className='bg-mainYellow rounded-full px-[5px]'>{totalProduct ? totalProduct : 0}</span></strong>
+              <strong><span className='bg-mainYellow rounded-full px-[5px]'>{totalProductLS}</span></strong>
               <strong><Link to={'/cart'}>Cart</Link></strong>
             </div>
           </div>
