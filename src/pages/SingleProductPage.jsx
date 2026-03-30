@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Rating } from '@mui/material'
+
 //router
 import { useParams } from 'react-router-dom'
 
 //REDUX
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../store/cartSlice'
+
+
 
 //services
 import ProductsService from '../services/ProductsService'
@@ -31,6 +34,9 @@ function SingleProductPage() {
       })
       .catch(err => console.log(err))
   }, [])
+
+  
+
   return (
     <div className='px-[20px] mb-5'>
       {isLoading ? <div className='container mx-auto flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]'>
@@ -59,7 +65,6 @@ function SingleProductPage() {
             <button className='bg-mainYellow text-whiteColor px-[40px] py-[10px] rounded-[20px] hover:bg-mainBlue'
             onClick={() => dispatch(addToCart(singleProduct))}
             >Add to Cart</button>
-            <button className='bg-mainBlue text-whiteColor px-[40px] py-[10px] rounded-[20px] hover:bg-mainYellow'>Add to Favorite</button>
           </div>
         </div>
       </div> : <LoaderComponent size={80} />}

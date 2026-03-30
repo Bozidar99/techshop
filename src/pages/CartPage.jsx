@@ -14,6 +14,8 @@ function CartPage() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+
+    
     setCartData(JSON.parse(localStorage.getItem('cart_item')) )
   }, [cart])
 
@@ -104,3 +106,4 @@ function CartPage() {
 }
 
 export default CartPage
+

@@ -1,4 +1,4 @@
-import { useState, useEffect  } from 'react'
+import { useState, useEffect } from 'react'
 
 //router
 import { Link } from 'react-router-dom'
@@ -11,7 +11,7 @@ import CategoryComponent from './CategoryComponent'
 //IMAGES
 import logo from '../assets/logo.png'
 import { IoPersonCircleOutline, IoCart } from "react-icons/io5";
-import { MdFavoriteBorder } from "react-icons/md";
+
 
 //CLERK
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
@@ -21,19 +21,17 @@ import { useSelector } from 'react-redux'
 
 function NavBarComponent() {
   const [toggleHeader, setToggleHeader] = useState(true)
-  const [totalProductLS, setTotalProductLS] = useState()
+  const totalProductLS = useSelector(state => state.cartStore.totalProduct)
+
+
+
+
+
+
   
-  const {totalProduct} = useSelector(state => state.cartStore)
 
-  useEffect(() => {
-		let lsTotal = JSON.parse(localStorage.getItem('cart_total'));
+  
 
-		if (lsTotal) {
-			setTotalProductLS(lsTotal);
-		} else {
-			setTotalProductLS(0);
-		}
-	}, [totalProduct]);
 
   return (
     <div>
@@ -60,12 +58,7 @@ function NavBarComponent() {
                 <UserButton showName />
               </SignedIn>
             </div>
-            <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
-              <MdFavoriteBorder size={38} />
-
-              <strong><span className='bg-mainYellow rounded-full px-[5px]'>0</span></strong>
-              <strong><span>Favorites</span></strong>
-            </div>
+           
             <div className='flex items-center gap-[10px] text-whiteColor text-lg'>
               <IoCart size={38} />
               <strong><span className='bg-mainYellow rounded-full px-[5px]'>{totalProductLS}</span></strong>
